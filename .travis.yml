@@ -1,0 +1,10 @@
+language: java
+
+addons:
+  sonarcloud:
+    organization: "ahmedriahi-github"
+    token:
+      secure: d28f4202dc3499639aa861145fe3e9405eaa01ee
+script:
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
+  - sonar-scanner
