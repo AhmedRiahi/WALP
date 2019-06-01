@@ -1,6 +1,6 @@
 package com.ef;
 
-import com.ef.helper.ParserArgumentsHelper;
+import com.ef.helper.CommandLineArgumentsHelper;
 
 import java.util.Map;
 
@@ -8,7 +8,7 @@ public class Parser {
 
     public static void main(String[] args){
         System.out.println("Launching Parser ...");
-        Map<ParserArgumentsHelper.ArgumentKey,String> argsMap = ParserArgumentsHelper.parseArgs(args);
+        Map<CommandLineArgumentsHelper.ArgumentKey,String> argsMap = CommandLineArgumentsHelper.parseArgs(args);
 
     }
 }

@@ -1,12 +1,13 @@
 package com.ef.helper;
 
+import com.ef.exception.MissingCommandLineArgumentsException;
 import com.ef.exception.UnknownArgumentException;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ParserArgumentsHelper {
+public class CommandLineArgumentsHelper {
 
     public enum ArgumentKey{
         ACCESS_LOG("accesslog"),
@@ -34,7 +35,10 @@ public class ParserArgumentsHelper {
         Map<ArgumentKey,String> argsMap = new HashMap<>();
         for(String arg : args){
             String[] keyValue = arg.split("=", 2);
-            argsMap.put(ArgumentKey.find(keyValue[0]),keyValue[1]);
+            argsMap.put(ArgumentKey.find(keyValue[0].substring(2)),keyValue[1]);
+        }
+        if(argsMap.keySet().size() < ArgumentKey.values().length){
+            throw new MissingCommandLineArgumentsException();
         }
         return argsMap;
     }
