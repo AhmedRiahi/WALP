@@ -1,5 +1,6 @@
 package com.ef.helper;
 
+import com.ef.config.ParserConfig;
 import com.ef.exception.InvalidCommandLineArgumentException;
 import com.ef.exception.MissingCommandLineArgumentsException;
 import com.ef.exception.UnknownCommandLineArgumentException;
@@ -47,10 +48,10 @@ public class CommandLineArgumentsHelperTest {
     @Test
     public void should_parse_argument_correctly() {
         String[] args = new String[]{"--accesslog=/path/to/file", "--startDate=2017-01-01.13:00:00", "--duration=hourly", "--threshold=100"};
-        Map<CommandLineArgumentsHelper.ArgumentKey, Object> argsMap = CommandLineArgumentsHelper.parseArgs(args);
-        Assertions.assertThat(argsMap.get(CommandLineArgumentsHelper.ArgumentKey.ACCESS_LOG)).isEqualTo(Paths.get("/path/to/file"));
-        Assertions.assertThat(argsMap.get(CommandLineArgumentsHelper.ArgumentKey.START_DATE)).isEqualTo(DateHelper.toLocalDateTime("2017-01-01.13:00:00",CommandLineArgumentsHelper.DATE_FORMAT));
-        Assertions.assertThat(argsMap.get(CommandLineArgumentsHelper.ArgumentKey.DURATION)).isEqualTo("hourly");
-        Assertions.assertThat(argsMap.get(CommandLineArgumentsHelper.ArgumentKey.THRESHOLD)).isEqualTo(100);
+        ParserConfig parserConfig = CommandLineArgumentsHelper.parseArgs(args);
+        Assertions.assertThat(parserConfig.getLogFilePath()).isEqualTo(Paths.get("/path/to/file"));
+        Assertions.assertThat(parserConfig.getStartDate()).isEqualTo(DateHelper.toLocalDateTime("2017-01-01.13:00:00",CommandLineArgumentsHelper.DATE_FORMAT));
+        Assertions.assertThat(parserConfig.getEndDate()).isEqualTo(DateHelper.toLocalDateTime("2017-01-01.13:59:59.999999999","yyyy-MM-dd.HH:mm:ss.SSSSSSSSS"));
+        Assertions.assertThat(parserConfig.getThreshold()).isEqualTo(100);
     }
 }

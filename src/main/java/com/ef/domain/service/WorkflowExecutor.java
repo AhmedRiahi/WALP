@@ -1,5 +1,6 @@
 package com.ef.domain.service;
 
+import com.ef.config.ParserConfig;
 import com.ef.domain.bean.LogLineBean;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,13 @@ public class WorkflowExecutor {
     @Autowired
     private IPAddressAnalyser ipAddressAnalyser;
 
-    public void launch(Path filePath, LocalDateTime startDate,LocalDateTime endDate,int threshold){
+    public void launch(ParserConfig parserConfig){
         log.info("Launching workflow");
-        List<LogLineBean> logLineBeans = this.fileParser.load(filePath);
+        List<LogLineBean> logLineBeans = this.fileParser.load(parserConfig.getLogFilePath());
         log.info("found "+logLineBeans.size()+" log line(s)");
-        List<LogLineBean> logLinesRange = this.logLinesRangeFetcher.fetchRange(logLineBeans,startDate,endDate);
+        List<LogLineBean> logLinesRange = this.logLinesRangeFetcher.fetchRange(logLineBeans,parserConfig.getStartDate(),parserConfig.getEndDate());
         log.info("found "+logLinesRange.size()+" log line(s) after filtering");
-        List<String> suspiciousIps = this.ipAddressAnalyser.analyse(logLineBeans,threshold);
+        List<String> suspiciousIps = this.ipAddressAnalyser.analyse(logLineBeans,parserConfig.getThreshold());
         log.info("found "+suspiciousIps.size()+" suspicious Ips");
         log.info("Finished workflow execution");
     }

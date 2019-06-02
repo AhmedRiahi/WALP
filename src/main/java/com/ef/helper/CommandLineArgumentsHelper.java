@@ -1,11 +1,14 @@
 package com.ef.helper;
 
+import com.ef.config.ParserConfig;
 import com.ef.exception.InvalidCommandLineArgumentException;
 import com.ef.exception.MissingCommandLineArgumentsException;
 import com.ef.exception.UnknownCommandLineArgumentException;
 import lombok.extern.slf4j.Slf4j;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -40,14 +43,14 @@ public class CommandLineArgumentsHelper {
         }
     }
 
-    public static Map<ArgumentKey, Object> parseArgs(String[] args) {
+    public static ParserConfig parseArgs(String[] args) {
         Map<ArgumentKey, Object> argsMap = new HashMap<>();
         for (String arg : args) {
             String[] keyValue = arg.split("=", 2);
             argsMap.put(ArgumentKey.find(keyValue[0].substring(2)), keyValue[1]);
         }
         CommandLineArgumentsHelper.validateArgs(argsMap);
-        return argsMap;
+        return CommandLineArgumentsHelper.createParserConfig(argsMap);
     }
 
     public static void validateArgs(Map<ArgumentKey, Object> argsMap) {
@@ -88,6 +91,24 @@ public class CommandLineArgumentsHelper {
             log.error(e.getMessage(), e);
             throw new InvalidCommandLineArgumentException(ArgumentKey.THRESHOLD.name);
         }
-
     }
+
+
+    public static ParserConfig createParserConfig(Map<ArgumentKey,Object> argsMap){
+        LocalDateTime startDate = (LocalDateTime)argsMap.get(CommandLineArgumentsHelper.ArgumentKey.START_DATE);
+        LocalDateTime endDate = null;
+        switch (argsMap.get(CommandLineArgumentsHelper.ArgumentKey.DURATION).toString()){
+            case "hourly":endDate = startDate.plusHours(1); break;
+            case "daily":endDate = startDate.plusDays(1); break;
+        }
+        endDate = endDate.minusSeconds(1).withNano(999999999);
+
+        return ParserConfig.builder()
+                .logFilePath((Path)argsMap.get(CommandLineArgumentsHelper.ArgumentKey.ACCESS_LOG))
+                .startDate(startDate)
+                .endDate(endDate)
+                .threshold((Integer)argsMap.get(ArgumentKey.THRESHOLD))
+        .build();
+    }
+
 }
