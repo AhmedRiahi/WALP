@@ -2,7 +2,7 @@ package com.ef.helper;
 
 import com.ef.exception.InvalidCommandLineArgumentException;
 import com.ef.exception.MissingCommandLineArgumentsException;
-import com.ef.exception.UnknownArgumentException;
+import com.ef.exception.UnknownCommandLineArgumentException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Paths;
@@ -36,7 +36,7 @@ public class CommandLineArgumentsHelper {
                     .stream()
                     .filter(argumentKey -> argumentKey.name.equals(key))
                     .findFirst()
-                    .orElseThrow(() -> new UnknownArgumentException(key));
+                    .orElseThrow(() -> new UnknownCommandLineArgumentException(key));
         }
     }
 

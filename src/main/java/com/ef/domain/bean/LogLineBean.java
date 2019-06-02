@@ -4,12 +4,11 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Builder
 public class LogLineBean {
 
-    private LocalDateTime date;
+    private LocalDateTime dateTime;
     private String ip;
 }

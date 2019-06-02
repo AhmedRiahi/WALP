@@ -2,9 +2,8 @@ package com.ef.helper;
 
 import com.ef.exception.InvalidCommandLineArgumentException;
 import com.ef.exception.MissingCommandLineArgumentsException;
-import com.ef.exception.UnknownArgumentException;
+import com.ef.exception.UnknownCommandLineArgumentException;
 import org.assertj.core.api.Assertions;
-import org.assertj.core.util.DateUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -15,7 +14,7 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 public class CommandLineArgumentsHelperTest {
 
-    @Test(expected = UnknownArgumentException.class)
+    @Test(expected = UnknownCommandLineArgumentException.class)
     public void should_throw_exception_for_unknown_argument() {
         String[] args = new String[]{"--unknowArgs=value"};
         CommandLineArgumentsHelper.parseArgs(args);

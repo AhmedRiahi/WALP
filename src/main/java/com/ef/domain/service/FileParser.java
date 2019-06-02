@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -23,8 +23,8 @@ public class FileParser {
     private String logLineSeparator = "\\|";
 
 
-    public List<LogLineBean> load(String filePath) {
-        try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
+    public List<LogLineBean> load(Path filePath) {
+        try (Stream<String> stream = Files.lines(filePath)) {
             return stream.map(this::transform).collect(Collectors.toList());
         } catch (IOException e) {
             log.error(e.getMessage(), e);
@@ -35,6 +35,6 @@ public class FileParser {
 
     private LogLineBean transform(String logLine) {
         String[] logLineSplitted = logLine.split(this.logLineSeparator);
-        return LogLineBean.builder().date(DateHelper.toLocalDateTime(logLineSplitted[0], FileParser.DATE_FORMAT)).ip(logLineSplitted[1]).build();
+        return LogLineBean.builder().dateTime(DateHelper.toLocalDateTime(logLineSplitted[0], FileParser.DATE_FORMAT)).ip(logLineSplitted[1]).build();
     }
 }
