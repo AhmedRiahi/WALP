@@ -86,7 +86,7 @@ public class CommandLineArgumentsHelper {
             argsMap.put(ArgumentKey.THRESHOLD, Integer.parseInt(threshold));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            throw new InvalidCommandLineArgumentException(ArgumentKey.START_DATE.name);
+            throw new InvalidCommandLineArgumentException(ArgumentKey.THRESHOLD.name);
         }
 
     }

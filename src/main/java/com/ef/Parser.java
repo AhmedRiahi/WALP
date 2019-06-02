@@ -27,7 +27,9 @@ public class Parser {
             case "hourly":endDate = startDate.plusHours(1); break;
             case "daily":endDate = startDate.plusDays(1); break;
         }
-        workflowExecutor.launch(filePath,startDate,endDate);
+        endDate = endDate.minusSeconds(1);
+        int threshold = (Integer)argsMap.get(CommandLineArgumentsHelper.ArgumentKey.THRESHOLD);
+        workflowExecutor.launch(filePath,startDate,endDate,threshold);
         context.registerShutdownHook();
     }
 }

@@ -1,7 +1,6 @@
 package com.ef.domain.service;
 
 import com.ef.domain.bean.LogLineBean;
-import com.ef.persistence.repository.LogLineRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,16 +20,16 @@ public class WorkflowExecutor {
     private LogLinesRangeFetcher logLinesRangeFetcher;
 
     @Autowired
-    private LogLineRepository logLineRepository;
+    private IPAddressAnalyser ipAddressAnalyser;
 
-    public void launch(Path filePath, LocalDateTime startDate,LocalDateTime endDate){
+    public void launch(Path filePath, LocalDateTime startDate,LocalDateTime endDate,int threshold){
         log.info("Launching workflow");
         List<LogLineBean> logLineBeans = this.fileParser.load(filePath);
         log.info("found "+logLineBeans.size()+" log line(s)");
         List<LogLineBean> logLinesRange = this.logLinesRangeFetcher.fetchRange(logLineBeans,startDate,endDate);
         log.info("found "+logLinesRange.size()+" log line(s) after filtering");
-
+        List<String> suspiciousIps = this.ipAddressAnalyser.analyse(logLineBeans,threshold);
+        log.info("found "+suspiciousIps.size()+" suspicious Ips");
         log.info("Finished workflow execution");
-
     }
 }

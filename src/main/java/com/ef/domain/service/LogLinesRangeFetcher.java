@@ -39,7 +39,7 @@ public class LogLinesRangeFetcher {
 
 
     private int searchNearestDate(List<LogLineBean> logLineBeans, LocalDateTime dateTime) {
-
+        //logLineBeans must be ordered
         int lowerIndex = 0;
         int higherIndex = logLineBeans.size() - 1;
 
