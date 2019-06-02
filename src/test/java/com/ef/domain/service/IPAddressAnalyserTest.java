@@ -2,13 +2,11 @@ package com.ef.domain.service;
 
 
 import com.ef.domain.bean.LogLineBean;
-import com.ef.helper.DateHelper;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.stereotype.Service;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;

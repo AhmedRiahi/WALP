@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.nio.file.Paths;
-import java.util.Map;
 
 @RunWith(SpringRunner.class)
 public class CommandLineArgumentsHelperTest {

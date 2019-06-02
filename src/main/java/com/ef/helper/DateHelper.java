@@ -15,8 +15,12 @@ public class DateHelper {
         FORMATTERS.put("yyyy-MM-dd.HH:mm:ss", DateTimeFormatter.ofPattern("yyyy-MM-dd.HH:mm:ss"));
     }
 
+    private DateHelper(){
+        //hide public constructor
+    }
+
     public static LocalDateTime toLocalDateTime(String date, String format) {
-        DateTimeFormatter dateTimeFormatter = DateHelper.FORMATTERS.computeIfAbsent(format,(x) -> DateTimeFormatter.ofPattern(format));
+        DateTimeFormatter dateTimeFormatter = DateHelper.FORMATTERS.computeIfAbsent(format,x -> DateTimeFormatter.ofPattern(format));
         return LocalDateTime.parse(date, dateTimeFormatter);
     }
 }

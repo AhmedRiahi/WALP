@@ -18,8 +18,6 @@ import java.util.stream.Stream;
 public class FileParser {
 
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
-
-    private int linesNumberChunck = 1000;
     private String logLineSeparator = "\\|";
 
 

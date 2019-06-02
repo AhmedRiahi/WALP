@@ -10,9 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -44,7 +43,7 @@ public class CommandLineArgumentsHelper {
     }
 
     public static ParserConfig parseArgs(String[] args) {
-        Map<ArgumentKey, Object> argsMap = new HashMap<>();
+        EnumMap<ArgumentKey, Object> argsMap = new EnumMap<>(ArgumentKey.class);
         for (String arg : args) {
             String[] keyValue = arg.split("=", 2);
             argsMap.put(ArgumentKey.find(keyValue[0].substring(2)), keyValue[1]);
@@ -53,7 +52,7 @@ public class CommandLineArgumentsHelper {
         return CommandLineArgumentsHelper.createParserConfig(argsMap);
     }
 
-    public static void validateArgs(Map<ArgumentKey, Object> argsMap) {
+    public static void validateArgs(EnumMap<ArgumentKey, Object> argsMap) {
         List<ArgumentKey> missingArgs = Arrays.asList(ArgumentKey.values())
                 .stream()
                 .filter(argumentKey -> !argsMap.containsKey(argumentKey))
@@ -94,12 +93,13 @@ public class CommandLineArgumentsHelper {
     }
 
 
-    public static ParserConfig createParserConfig(Map<ArgumentKey,Object> argsMap){
+    public static ParserConfig createParserConfig(EnumMap<ArgumentKey,Object> argsMap){
         LocalDateTime startDate = (LocalDateTime)argsMap.get(CommandLineArgumentsHelper.ArgumentKey.START_DATE);
         LocalDateTime endDate = null;
-        switch (argsMap.get(CommandLineArgumentsHelper.ArgumentKey.DURATION).toString()){
-            case "hourly":endDate = startDate.plusHours(1); break;
-            case "daily":endDate = startDate.plusDays(1); break;
+        if (argsMap.get(CommandLineArgumentsHelper.ArgumentKey.DURATION).toString().equals("hourly")){
+            endDate = startDate.plusHours(1);
+        }else if (argsMap.get(CommandLineArgumentsHelper.ArgumentKey.DURATION).toString().equals("daily")){
+            endDate = startDate.plusDays(1);
         }
         endDate = endDate.minusSeconds(1).withNano(999999999);
 
