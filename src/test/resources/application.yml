@@ -9,3 +9,9 @@ spring:
       dialect: org.hibernate.dialect.H2Dialect
       ddl-auto: create
       show-sql: true
+
+parser:
+  log:
+    separator : "\\|"
+    date:
+      format: "yyyy-MM-dd HH:mm:ss.SSS"

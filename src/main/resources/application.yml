@@ -15,3 +15,8 @@ spring:
         hibernate:
             ddl-auto: create
 
+parser:
+    log:
+        separator : "\\|"
+        date:
+            format: "yyyy-MM-dd HH:mm:ss.SSS"

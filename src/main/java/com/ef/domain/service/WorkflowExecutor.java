@@ -24,12 +24,16 @@ public class WorkflowExecutor {
 
     public void launch(ParserConfig parserConfig){
         log.info("Launching workflow");
+
         List<LogLineBean> logLineBeans = this.fileParser.load(parserConfig.getLogFilePath());
         log.info("found "+logLineBeans.size()+" log line(s)");
+
         List<LogLineBean> logLinesRange = this.logLinesRangeFetcher.fetchRange(logLineBeans,parserConfig.getStartDate(),parserConfig.getEndDate());
         log.info("found "+logLinesRange.size()+" log line(s) after filtering");
+
         List<String> suspiciousIps = this.ipAddressAnalyser.analyse(logLineBeans,parserConfig.getThreshold());
         log.info("found "+suspiciousIps.size()+" suspicious Ips");
+
         this.ipBlocker.block(suspiciousIps,parserConfig);
         log.info("Finished workflow execution");
     }

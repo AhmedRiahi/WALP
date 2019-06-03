@@ -4,6 +4,7 @@ import com.ef.domain.bean.LogLineBean;
 import com.ef.domain.exception.FileLoadingException;
 import com.ef.helper.DateHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,8 +18,11 @@ import java.util.stream.Stream;
 @Slf4j
 public class FileParser {
 
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
-    private String logLineSeparator = "\\|";
+    @Value("${parser.log.date.format}")
+    public String dateFormat;
+
+    @Value("${parser.log.separator}")
+    private String logLineSeparator;
 
 
     public List<LogLineBean> load(Path filePath) {
@@ -33,6 +37,6 @@ public class FileParser {
 
     private LogLineBean transform(String logLine) {
         String[] logLineSplitted = logLine.split(this.logLineSeparator);
-        return LogLineBean.builder().dateTime(DateHelper.toLocalDateTime(logLineSplitted[0], FileParser.DATE_FORMAT)).ip(logLineSplitted[1]).build();
+        return LogLineBean.builder().dateTime(DateHelper.toLocalDateTime(logLineSplitted[0], dateFormat)).ip(logLineSplitted[1]).build();
     }
 }

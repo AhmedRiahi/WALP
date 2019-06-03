@@ -7,7 +7,7 @@ import java.nio.file.Path;
 
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @Builder
 public class ParserConfig {
 
