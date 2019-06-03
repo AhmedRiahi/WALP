@@ -17,9 +17,10 @@ public class WorkflowExecutor {
     private FileParser fileParser;
     @Autowired
     private LogLinesRangeFetcher logLinesRangeFetcher;
-
     @Autowired
     private IPAddressAnalyser ipAddressAnalyser;
+    @Autowired
+    private IPBlocker ipBlocker;
 
     public void launch(ParserConfig parserConfig){
         log.info("Launching workflow");
@@ -29,6 +30,7 @@ public class WorkflowExecutor {
         log.info("found "+logLinesRange.size()+" log line(s) after filtering");
         List<String> suspiciousIps = this.ipAddressAnalyser.analyse(logLineBeans,parserConfig.getThreshold());
         log.info("found "+suspiciousIps.size()+" suspicious Ips");
+        this.ipBlocker.block(suspiciousIps);
         log.info("Finished workflow execution");
     }
 }

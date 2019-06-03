@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -52,7 +53,7 @@ public class CommandLineArgumentsHelper {
         return CommandLineArgumentsHelper.createParserConfig(argsMap);
     }
 
-    public static void validateArgs(EnumMap<ArgumentKey, Object> argsMap) {
+    public static void validateArgs(Map<ArgumentKey, Object> argsMap) {
         List<ArgumentKey> missingArgs = Arrays.asList(ArgumentKey.values())
                 .stream()
                 .filter(argumentKey -> !argsMap.containsKey(argumentKey))
@@ -93,7 +94,7 @@ public class CommandLineArgumentsHelper {
     }
 
 
-    public static ParserConfig createParserConfig(EnumMap<ArgumentKey,Object> argsMap){
+    public static ParserConfig createParserConfig(Map<ArgumentKey,Object> argsMap){
         LocalDateTime startDate = (LocalDateTime)argsMap.get(CommandLineArgumentsHelper.ArgumentKey.START_DATE);
         LocalDateTime endDate = null;
         if (argsMap.get(CommandLineArgumentsHelper.ArgumentKey.DURATION).toString().equals("hourly")){
