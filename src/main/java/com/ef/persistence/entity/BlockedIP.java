@@ -5,7 +5,6 @@ import lombok.Data;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Data
