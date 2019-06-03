@@ -18,30 +18,35 @@ public class CommandLineArgumentsHelperTest {
     public void should_throw_exception_for_unknown_argument() {
         String[] args = new String[]{"--unknowArgs=value"};
         CommandLineArgumentsHelper.parseArgs(args);
+        Assertions.fail("Exception must occur here !!");
     }
 
     @Test(expected = MissingCommandLineArgumentsException.class)
     public void should_throw_exception_for_missing_argument() {
         String[] args = new String[]{"--accesslog=test.log"};
         CommandLineArgumentsHelper.parseArgs(args);
+        Assertions.fail("Exception must occur here !!");
     }
 
     @Test(expected = InvalidCommandLineArgumentException.class)
     public void should_throw_exception_for_invalid_startDate_argument() {
         String[] args = new String[]{"--accesslog=invalid_path.log", "--startDate=not_a_date", "--duration=hourly", "--threshold=100"};
         CommandLineArgumentsHelper.parseArgs(args);
+        Assertions.fail("Exception must occur here !!");
     }
 
     @Test(expected = InvalidCommandLineArgumentException.class)
     public void should_throw_exception_for_invalid_duration_argument() {
         String[] args = new String[]{"--accesslog=invalid_path.log", "--startDate=2017-01-01.13:00:00", "--duration=invalid", "--threshold=100"};
         CommandLineArgumentsHelper.parseArgs(args);
+        Assertions.fail("Exception must occur here !!");
     }
 
     @Test(expected = InvalidCommandLineArgumentException.class)
     public void should_throw_exception_for_invalid_threshold_argument() {
         String[] args = new String[]{"--accesslog=invalid_path.log", "--startDate=2017-01-01.13:00:00", "--duration=hourly", "--threshold=xxx"};
         CommandLineArgumentsHelper.parseArgs(args);
+        Assertions.fail("Exception must occur here !!");
     }
 
     @Test
