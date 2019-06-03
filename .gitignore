@@ -2,3 +2,6 @@
 .idea/
 target/
 *.iml
+.scannerwork/*
+sonar-scanner-debug.bat
+sonar-scanner.bat
