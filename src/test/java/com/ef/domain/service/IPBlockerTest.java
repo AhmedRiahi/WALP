@@ -1,5 +1,6 @@
 package com.ef.domain.service;
 
+import com.ef.config.ParserConfig;
 import com.ef.persistence.repository.BlockedIPRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -24,10 +25,10 @@ public class IPBlockerTest {
 
     @Test
     public void given_list_of_suspicious_ips_when_calling_blocker_ip_should_be_persisted_on_database(){
-        int initialSize = this.blockedIPRepository.findAll().size();
-        this.ipBlocker.block(Arrays.asList("1.1.1.1","1.1.1.2","1.1.1.3"));
+        int beforeSize = this.blockedIPRepository.findAll().size();
+        this.ipBlocker.block(Arrays.asList("1.1.1.1","1.1.1.2","1.1.1.3"), ParserConfig.builder().build());
         int afterSize = this.blockedIPRepository.findAll().size();
-        Assertions.assertThat(afterSize - initialSize).isEqualTo(3);
+        Assertions.assertThat(afterSize - beforeSize).isEqualTo(3);
     }
 
 }
