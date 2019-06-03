@@ -53,7 +53,8 @@ public class WorkflowExecutor {
 
         List<String> suspiciousIps = this.ipAddressAnalyser.analyse(logLineBeans, parserConfig.getThreshold());
         log.info("found " + suspiciousIps.size() + " suspicious Ip(s)");
-
+        log.info("List of suspicious Ip(s):");
+        log.info(suspiciousIps.stream().collect(Collectors.joining("\n")));
         this.ipBlocker.block(suspiciousIps, parserConfig);
         log.info("Finished workflow execution");
     }

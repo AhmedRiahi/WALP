@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 @Getter
+@ToString
 @Builder
 public class ParserConfig {
 
