@@ -1,6 +1,7 @@
 package com.ef.persistence.entity;
 
 import lombok.Data;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +11,15 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity(name = "LogLine")
-public class LogLineEntity {
+public class LogLineEntity implements Persistable<Long> {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     private LocalDateTime dateTime;
     private String ip;
 
+    @Override
+    public boolean isNew() {
+        return true;
+    }
 }
