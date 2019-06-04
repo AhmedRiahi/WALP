@@ -1,2 +1,2 @@
-# WALP
+# WALP ![Build Status](https://travis-ci.org/AhmedRiahi/WALP.svg?branch=master) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=AhmedRiahi_WALP&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AhmedRiahi_WALP) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AhmedRiahi_WALP&metric=alert_status)](https://sonarcloud.io/dashboard?id=AhmedRiahi_WALP) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AhmedRiahi_WALP&metric=coverage)](https://sonarcloud.io/dashboard?id=AhmedRiahi_WALP)
 Web Access Log Parser
