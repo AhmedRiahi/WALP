@@ -1,6 +1,6 @@
 spring:
     datasource:
-        url: jdbc:mysql://localhost:3306/WALP?useJDBCCompliantTimezoneShift=true&serverTimezone=UTC&useSSL=false
+        url: jdbc:mysql://localhost:3306/WALP?useSSL=false
         username: root
         password: root
         driverClassName: com.mysql.cj.jdbc.Driver
@@ -16,7 +16,7 @@ spring:
             ddl-auto: create
 
 parser:
-    full-load : false
+    full-load : true
     log:
         separator : "\\|"
         date:
